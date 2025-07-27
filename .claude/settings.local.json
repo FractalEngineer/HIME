@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"c:\\\\Users\\\\titan\\\\Desktop\\\\Github Projects\\\\Mine\\\\HIME\\\\hime_task_organizer.html\")",
+      "Bash(start \"\" \"c:\\\\Users\\\\titan\\\\Desktop\\\\Github Projects\\\\Mine\\\\HIME\\\\hime_task_organizer_embed.html\")"
+    ]
+  }
+}
