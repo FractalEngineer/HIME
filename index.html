@@ -394,6 +394,35 @@
             transform: rotate(180deg);
         }
 
+        .done-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-clear {
+            background: none;
+            border: 1px solid #f44336;
+            color: #f44336;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clear:hover:not(:disabled) {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-clear:disabled {
+            border-color: #e0e0e0;
+            color: #bbb;
+            cursor: not-allowed;
+        }
+
         .done-tasks {
             margin-top: 15px;
             max-height: 0;
@@ -551,7 +580,10 @@
                     <span>Completed Tasks</span>
                     <span class="done-count" id="doneCount">0</span>
                 </div>
-                <span class="toggle-icon" id="toggleIcon">▼</span>
+                <div class="done-header-actions">
+                    <button class="btn-clear" id="clearDoneBtn" onclick="clearDoneTasks(event)" title="Clear all completed tasks" disabled>Clear</button>
+                    <span class="toggle-icon" id="toggleIcon">▼</span>
+                </div>
             </div>
             <div class="done-tasks" id="doneTasks"></div>
         </div>
@@ -839,12 +871,23 @@
             }
         }
 
+        // Clear all done tasks
+        function clearDoneTasks(event) {
+            event.stopPropagation();
+            if (doneTasks.length === 0) return;
+            doneTasks = [];
+            renderDoneTasks();
+            saveToLocalStorage();
+        }
+
         // Render completed tasks
         function renderDoneTasks() {
             const container = document.getElementById('doneTasks');
             const countBadge = document.getElementById('doneCount');
+            const clearBtn = document.getElementById('clearDoneBtn');
 
             countBadge.textContent = doneTasks.length;
+            clearBtn.disabled = doneTasks.length === 0;
 
             if (doneTasks.length === 0) {
                 container.innerHTML = '';
